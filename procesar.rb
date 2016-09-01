@@ -34,7 +34,8 @@ puts "Datos brutos"
   puts "Registros: #{sueldos.count}",
     "Max: #{sueldos.max}",
     "Avg: #{mean(sueldos)}",
-    "Med: #{media}", "",
+    "Med: #{media}",
+    "Min: #{sueldos.min}" "",
     "Removidos outliers",""
 
   sueldos = sueldos.select{|s| s > media/i && s < media*i }
