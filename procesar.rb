@@ -16,14 +16,23 @@ end
 archivo_path = 'argentina.csv'
 
 # Campos del CSV
+EXPERIENCIA = 3.freeze
 PUESTO = 5.freeze
+TECNO = 6.freeze
+TECNO2 = 7.freeze
 SUELDO = 15.freeze
 
 # Regex para machear el puesto, cambiala!
 PUESTO_RX = /developer|desarrollador/i.freeze
+TECNO_RX = /node|js|javascript/i.freeze
+EXPERIENCIA_RX = /(8) \- /i.freeze
 
 rows = CSV.foreach(archivo_path)
 puesto_rows = rows.select{|r| r[PUESTO] =~ PUESTO_RX }
+
+puesto_rows = puesto_rows.select{|r| (r[TECNO] =~ TECNO_RX) || (r[TECNO2] =~ TECNO_RX) } if TECNO_RX
+puesto_rows = puesto_rows.select{|r| r[EXPERIENCIA] =~ EXPERIENCIA_RX } if EXPERIENCIA_RX
+
 sueldos = puesto_rows.collect{|r| r[SUELDO].to_i }
 media = median(sueldos)
 
